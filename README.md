@@ -1,12 +1,12 @@
 # e-m-c.extra
 
-e-m-c 的可复用代码与模块收集仓库，不限于前端。可以包含独立工具、模块和实验应用。
+e-m-c 的可复用代码与模块收集仓库，涵盖工具、模块和实验应用。
 
 当前根目录是一个实验聊天前端：回答在上面，runtime 自己的运行链折在下面 —— 参考 DeepSeek Harness
 和 [assistant-ui 的 chain-of-thought 折叠](https://assistant-ui.com/docs/guides/chain-of-thought)：
 过程收成一行，展开才占地方，最终正文永远是主角。
 
-该前端只读地 import 原实验后端的包：
+根目录前端使用以下实验后端：
 
 | 后端 | 包 | 看什么 |
 |---|---|---|
@@ -23,7 +23,7 @@ workspace/
 └── e-m-c.extra/                           # 这个前端
 ```
 
-路径都能用环境变量改：`EMC_PATH`（旧的 `AGENT_RUNTIME_PATH` 仍然认）。
+通过 `EMC_PATH` 或 `AGENT_RUNTIME_PATH` 指定后端路径。
 凭据从任何导出 `AGENT_*` 的 shell 片段来：
 
 ```bash
@@ -47,12 +47,6 @@ ENV_FILE=~/agent-env.sh PORT=8090 ./run.sh
 | 写入 | 每条新记忆的 `write_strength`，以及它替代了谁 |
 | 提交 | step 变化、情绪漂移（ρ）、写入与替代的 id |
 
-**记忆动力学（已移除）**
-
-demo2 曾用来观察衰减、权重与稳定性。分支 `codex/demo2-memory-dynamics` 与 PR #7 已删除，
-代码、后端注册和界面入口都不再存在；这一节只在 Git 历史里保留。`docs/run-chain-demo2.png`
-是当时的截图，留作记录。
-
 ## 评分与评价
 
 每条回答下面有 1–5 分和一段评价。**它们只写日志，不回传给 runtime**，不影响权重、情绪、检索。
@@ -71,7 +65,7 @@ demo2 曾用来观察衰减、权重与稳定性。分支 `codex/demo2-memory-dy
 
 ## 日志
 
-服务端把三样东西追加到 `logs/*.jsonl`：
+服务端将运行与评价记录追加到 `logs/*.jsonl`：
 
 | 文件 | 一行是什么 |
 |---|---|
@@ -98,7 +92,7 @@ demo2 曾用来观察衰减、权重与稳定性。分支 `codex/demo2-memory-dy
 | POST | `/api/threads/<id>/messages` | 发一句话，返回 run id |
 | GET | `/api/threads/<id>/runs/<run>` | 轮询这一轮：状态、阶段、事件、trace |
 | POST | `/api/threads/<id>/ratings` | 批量：`{ratings: [{run, score, note}]}`，一次 1–200 条，只进日志 |
-| POST | `/api/threads/<id>/messages/<run>/rating` | 单条：`{score: 1-5, note}`，老接口，仍在 |
+| POST | `/api/threads/<id>/messages/<run>/rating` | 单条评分：`{score: 1-5, note}` |
 | GET | `/api/logs` | 最近的运行摘要与评分 |
 | GET | `/api/logs/export` | 全部 JSONL |
 
@@ -108,4 +102,4 @@ demo2 曾用来观察衰减、权重与稳定性。分支 `codex/demo2-memory-dy
 ## 审查用
 
 `?thread=<id>` 定位会话，`?expand=1` 展开所有运行链，
-`?all=1` 连每一段也一起展开，`?logs=1` 直接打开日志抽屉。旧的 `?backend=demo2` 会回落到 demo1。
+`?all=1` 连每一段也一起展开，`?logs=1` 直接打开日志抽屉。
