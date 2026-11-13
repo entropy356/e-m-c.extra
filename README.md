@@ -1,10 +1,12 @@
 # e-m-c.extra
 
-e-m-c 的聊天前端。回答在上面，runtime 自己的运行链折在下面 —— 参考 DeepSeek Harness
+e-m-c 的可复用代码与模块收集仓库，不限于前端。可以包含独立工具、模块和实验应用。
+
+当前根目录是一个实验聊天前端：回答在上面，runtime 自己的运行链折在下面 —— 参考 DeepSeek Harness
 和 [assistant-ui 的 chain-of-thought 折叠](https://assistant-ui.com/docs/guides/chain-of-thought)：
 过程收成一行，展开才占地方，最终正文永远是主角。
 
-不是主仓库的一部分，只读地 import 它的包：
+该前端只读地 import 原实验后端的包：
 
 | 后端 | 包 | 看什么 |
 |---|---|---|
