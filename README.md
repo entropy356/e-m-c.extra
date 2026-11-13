@@ -10,6 +10,9 @@ e-m-c 的聊天前端。回答在上面，runtime 自己的运行链折在下面
 |---|---|---|
 | 情绪记忆 | `e-m-c/demos/demo1-emotion-memory` | 检索打分、情绪漂移、替代、按需检索 |
 
+另一个前端在 `m1-memory/`：同一套折叠界面，后端换成 `e-m-c.runtime` 加 `m1.memory` 模块，
+带联网搜索。见 [m1-memory/README.md](m1-memory/README.md)。
+
 ## 跑起来
 
 ```

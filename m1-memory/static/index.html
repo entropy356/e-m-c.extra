@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>e-m-c · M1 记忆</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<div class="shell">
+  <aside class="rail">
+    <div class="brand">
+      <div class="mark">M1</div>
+      <div class="brand-text">
+        <strong>e-m-c</strong>
+        <span>query-driven memory</span>
+      </div>
+    </div>
+
+    <button id="new-thread" class="new-thread">＋ 新对话</button>
+
+    <div class="rail-label">会话</div>
+    <nav id="thread-list" class="thread-list"></nav>
+
+    <div class="rail-foot">
+      <div class="metric-row">
+        <span>记忆块</span><b id="stat-chunks">0</b>
+      </div>
+      <div class="metric-row">
+        <span>文档</span><b id="stat-docs">0</b>
+      </div>
+      <div class="metric-row">
+        <span>经历邻接</span><b id="stat-edges">0</b>
+      </div>
+      <div class="metric-row">
+        <span>编码器</span><b id="stat-encoder">—</b>
+      </div>
+      <button id="open-memory" class="ghost wide">记忆库</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs">
+        <span id="conv-title">新对话</span>
+        <span class="crumbs-sub" id="conv-sub"></span>
+      </div>
+      <div class="topbar-actions">
+        <button id="toggle-rail" class="ghost only-mobile">会话</button>
+        <button id="open-memory-2" class="ghost">记忆库</button>
+      </div>
+    </header>
+
+    <section id="thread" class="thread">
+      <div class="empty" id="empty">
+        <h1>它记得你说过的每一句话</h1>
+        <p>原文全部保留，查询时先算词法与语义，再在神经元网络上做带重启的扩散激活，最后把被激活的原文片段取回来。</p>
+        <div class="prompts">
+          <button data-prompt="我那只猫叫什么名字？它怕什么？">我那只猫叫什么？</button>
+          <button data-prompt="上周三我在杭州吃了什么？">上周三在杭州吃了什么</button>
+          <button data-prompt="你还记得我最近在做的那个模型吗？最意外的结论是什么？">还记得我在做的模型吗</button>
+        </div>
+        <p class="hint">第一次来可以先点左侧「记忆库 → 预置几条示例记忆」，再开始聊。</p>
+      </div>
+    </section>
+
+    <footer class="composer">
+      <div class="composer-box">
+        <textarea id="input" rows="1" placeholder="说点什么，Enter 发送，Shift+Enter 换行"></textarea>
+        <button id="send" class="send">发送</button>
+      </div>
+      <div class="composer-foot">
+        <span id="status"></span>
+        <span class="kbd">M1 · 记忆库共享，指针按会话隔离</span>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<div id="drawer" class="drawer" aria-hidden="true">
+  <div class="drawer-panel">
+    <header class="drawer-head">
+      <div>
+        <h2>记忆库</h2>
+        <p id="drawer-sub">原文 + 稀疏关联 + 跨轮指针</p>
+      </div>
+      <button id="close-drawer" class="ghost">关闭</button>
+    </header>
+
+    <div class="drawer-body">
+      <section class="block">
+        <div class="block-head">
+          <h3>写入</h3>
+          <button id="seed" class="ghost small">预置示例记忆</button>
+        </div>
+        <textarea id="doc-input" rows="3" placeholder="贴一段想让 agent 记住的话"></textarea>
+        <div class="row">
+          <input id="doc-time" type="text" placeholder="时间（可选，2026-11-04 20:10:00）" />
+          <button id="add-doc" class="solid small">写入记忆</button>
+        </div>
+        <p class="note">写入会立刻进入索引，下一次对话就能被检索到。</p>
+      </section>
+
+      <section class="block">
+        <div class="block-head">
+          <h3>记忆块 <span id="chunk-count" class="count"></span></h3>
+          <button id="reset-pointer" class="ghost small">重置本轮指针</button>
+        </div>
+        <p class="note">激活值来自上一次检索留下的指针 p；点击块可以展开全文。</p>
+        <div id="chunk-list" class="chunk-list"></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
