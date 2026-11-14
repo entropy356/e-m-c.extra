@@ -8,22 +8,16 @@ e-m-c 的可复用代码与模块收集仓库，涵盖工具、模块和实验�
 
 根目录前端使用以下实验后端：
 
-| 后端 | 包 | 看什么 |
+| 后端 | 接口 | 看什么 |
 |---|---|---|
-| 情绪记忆 | `e-m-c/demos/demo1-emotion-memory` | 检索打分、情绪漂移、替代、按需检索 |
+| 情绪记忆 | 外部 Python 包 `emc.providers.APIProvider`、`emc.runtime.Runtime` | 检索打分、情绪漂移、替代、按需检索 |
 
 另一个前端在 `m1-memory/`：同一套折叠界面，后端换成 `e-m-c.runtime` 加 `m1.memory` 模块，
 带联网搜索。见 [m1-memory/README.md](m1-memory/README.md)。
 
 ## 跑起来
 
-```
-workspace/
-├── e-m-c/demos/demo1-emotion-memory/emc   # demo1
-└── e-m-c.extra/                           # 这个前端
-```
-
-通过 `EMC_PATH` 或 `AGENT_RUNTIME_PATH` 指定后端路径。
+根目录前端通过 `EMC_PATH` 指定后端目录；也兼容 `AGENT_RUNTIME_PATH`。该目录下应包含可导入的 `emc` Python 包。
 凭据从任何导出 `AGENT_*` 的 shell 片段来：
 
 ```bash
