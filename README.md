@@ -2,6 +2,11 @@
 
 e-m-c 的可复用代码与模块收集仓库，涵盖工具、模块和实验应用。
 
+## 开发约定
+
+- [项目文档与代码维护约定](https://github.com/entropy356/e-m-c.workbench/blob/main/rules/documentation.md)
+- [e-m-c.* 日常整理](https://github.com/entropy356/e-m-c.workbench/blob/main/rules/workflows/daily-maintenance.md)
+
 当前根目录是一个实验聊天前端：回答在上面，runtime 自己的运行链折在下面 —— 参考 DeepSeek Harness
 和 [assistant-ui 的 chain-of-thought 折叠](https://assistant-ui.com/docs/guides/chain-of-thought)：
 过程收成一行，展开才占地方，最终正文永远是主角。
